@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vpn_basic_project/controllers/home_controller.dart';
 
+import '../helpers/dialogs.dart';
 import '../helpers/pref.dart';
 import '../main.dart';
 import '../models/vpn.dart';
@@ -28,6 +29,8 @@ class VpnCard extends StatelessWidget {
           controller.vpn.value = vpn;
           Pref.vpn = vpn;
           Get.back();
+
+          //Dialogs.success(msg: 'Connecting...');
 
           if(controller.vpnState.value == VpnEngine.vpnConnected){
             VpnEngine.stopVpn();
