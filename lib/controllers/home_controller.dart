@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vpn_basic_project/helpers/dialogs.dart';
 import 'package:vpn_basic_project/helpers/pref.dart';
 
 import '../models/vpn.dart';
@@ -15,8 +16,11 @@ class HomeController extends GetxController {
 
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
-  void connectToVpn() {
-    if(vpn.value.openVPNConfigDataBase64.isEmpty) return;
+  void connectToVpn() async {
+    if(vpn.value.openVPNConfigDataBase64.isEmpty) {
+      Dialogs.info(msg: 'Select a location by clicking \'Change Location\'');
+      return;
+    }
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
 
@@ -29,10 +33,10 @@ class HomeController extends GetxController {
       final vpnConfig = VpnConfig(country: vpn.value.countryLong, username: 'vpn', password: 'vpn', config: config);
 
       ///Start if stage is disconnected
-      VpnEngine.startVpn(vpnConfig);
+      await VpnEngine.startVpn(vpnConfig);
     } else {
       ///Stop if stage is "not" disconnected
-      VpnEngine.stopVpn();
+      await VpnEngine.stopVpn();
     }
   }
 
