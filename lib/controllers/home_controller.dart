@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vpn_basic_project/helpers/ad_helper.dart';
+import 'package:vpn_basic_project/helpers/config.dart';
 import 'package:vpn_basic_project/helpers/dialogs.dart';
 import 'package:vpn_basic_project/helpers/pref.dart';
+import 'package:vpn_basic_project/widgets/watch_ad_dialog.dart';
 
 import '../models/vpn.dart';
 import '../models/vpn_config.dart';
@@ -33,7 +34,17 @@ class HomeController extends GetxController {
       final vpnConfig = VpnConfig(country: vpn.value.countryLong, username: 'vpn', password: 'vpn', config: config);
 
       ///Start if stage is disconnected
-      await VpnEngine.startVpn(vpnConfig);
+
+      if(Config.hideAds){
+        await VpnEngine.startVpn(vpnConfig);
+        return;
+      }
+
+      Get.dialog(WatchAdDialog(onComplete: (){
+        AdHelper.showRewardedAd(onComplete: () async {
+          await VpnEngine.startVpn(vpnConfig);
+        });
+      }));
     } else {
       ///Stop if stage is "not" disconnected
       await VpnEngine.stopVpn();

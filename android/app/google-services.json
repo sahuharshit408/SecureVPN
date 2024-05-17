@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048542617757",
+    "project_id": "vpn-dddf1",
+    "storage_bucket": "vpn-dddf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048542617757:android:c71f4cd5152759f61cb474",
+        "android_client_info": {
+          "package_name": "com.harshitDev.secureVPN"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe-0F0Xz5Xc2ayKxZmmel9xeFyPZE3lw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
