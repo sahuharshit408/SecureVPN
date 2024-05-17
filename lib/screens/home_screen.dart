@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:vpn_basic_project/controllers/home_controller.dart';
+import 'package:vpn_basic_project/helpers/ad_helper.dart';
 import 'package:vpn_basic_project/helpers/pref.dart';
 import 'package:vpn_basic_project/screens/location_screen.dart';
 import 'package:vpn_basic_project/screens/network_test_screen.dart';
@@ -142,9 +143,18 @@ class HomeScreen extends StatelessWidget {
       Semantics(
       button: true,
       child: InkWell(
+        //without rewarded ad
         onTap: () {
           _controller.connectToVpn();
         },
+
+        //with rewarded ad
+        // onTap: () {
+        //   AdHelper.showRewardedAd(onComplete: (){
+        //     _controller.connectToVpn();
+        //   });
+        // },
+
         child: Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -213,7 +223,14 @@ class HomeScreen extends StatelessWidget {
       child: Semantics(
         button: true,
         child: InkWell(
+
+          //Without Interstitial Ad
           onTap: () => Get.to(() => LocationScreen()),
+
+          //With Interstitial Ad
+          // onTap: () {
+          //   AdHelper.showInterstitialAd(onComplete: () => Get.to(() => LocationScreen()));
+          // },
           child: Container(
               color: Theme.of(context).bottomNav,
               padding: EdgeInsets.symmetric(horizontal: mq.width * .04),

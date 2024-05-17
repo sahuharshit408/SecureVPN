@@ -20,4 +20,8 @@ class Dialogs {
         colorText: Colors.white ,
         backgroundColor: Colors.blueAccent.withOpacity(.5));
   }
+
+  static showProgress() {
+    Get.dialog(Center(child: CircularProgressIndicator(strokeWidth: 2)));
+  }
 }

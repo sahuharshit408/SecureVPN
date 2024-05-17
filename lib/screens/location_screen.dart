@@ -1,27 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vpn_basic_project/controllers/location_controller.dart';
+import 'package:vpn_basic_project/controllers/native_ad_controller.dart';
+import 'package:vpn_basic_project/helpers/ad_helper.dart';
 
-import '../apis/apis.dart';
 import '../main.dart';
 import '../widgets/vpn_card.dart';
 
 class LocationScreen  extends StatelessWidget {
   LocationScreen({super.key});
   final _controller = LocationController();
+  final _adController = NativeAdController();
 
   @override
   Widget build(BuildContext context){
 
     if(_controller.vpnList.isEmpty)  _controller.getVpnData();
 
+    _adController.ad = AdHelper.loadNativeAd(adController: _adController);
+
     return Obx(
         () => Scaffold(
           appBar: AppBar(
             title: Text('VPN Locations(${_controller.vpnList.length})'),
           ),
+
+          bottomNavigationBar:
+              // Config.hideAds ? null :
+              _adController.ad != null && _adController.adLoaded.isTrue
+                  ? SafeArea(
+                       child: SizedBox(
+                           height: 85, child: AdWidget(ad: _adController.ad!)))
+                  : null,
 
           floatingActionButton: Padding(
               padding: const EdgeInsets.only(bottom: 10 , right: 10),
